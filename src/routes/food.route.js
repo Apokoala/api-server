@@ -2,7 +2,12 @@ const express = require('express')
 
 const { foodCollection } = require('../models/index')
 
-const foodRoutes = express()
+const foodRoutes = express();
+foodRoutes.get('/food', getFoods) // Retrieve All
+foodRoutes.get('/food/:id', getFood) // Retrieve One
+foodRoutes.post('/food', createFood) // Create
+foodRoutes.put('/food/:id', updateFood) // Update
+foodRoutes.delete('/food/:id', deleteFood) // Delete
 
 const getFoods = async (_, res) => {
     const allFood = await foodCollection.read()
@@ -11,8 +16,20 @@ const getFoods = async (_, res) => {
 
 const getFood = async (req, res, next) => {
     const id = req.params.id
-    const food = await foodCollection.read(id)
-    food === null ? next() : res.json(food)
+    const food = await Food.findOne({
+        where: { id:id },
+        include: Sauce,
+    });
+    if (user === null) {
+        next();
+    } else {
+        const rawFood = {
+            id: food.id,
+            sauce: user.Sauce.map((sauce) => sauce.name),
+        };
+        res.json(rawFood);
+    }
+    }    food === null ? next() : res.json(food)
 }
 
 const deleteFood = async (req, res, next) => {
@@ -21,7 +38,7 @@ const deleteFood = async (req, res, next) => {
     if (food === null) {
         next()
     } else {
-        await food
+        await food.destroy();
         res.json({})
     }
 }
@@ -32,8 +49,13 @@ const createFood = async (req, res) => {
         name: foodItemName,
         group: foodGroup,
     })
-    res.json(food)
+    const sauce = req.body.sauce ?? [];
+    for (const name of sauce) {
+        await user.createHobby({ name });
+    }
+    res.json(food);
 }
+
 
 const updateFood = async (req, res, next) => {
     const id = req.params.id
