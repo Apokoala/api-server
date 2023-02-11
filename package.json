@@ -1,25 +1,5 @@
 {
-  "name": "api-server",
-  "version": "1.0.0",
-  "description": "api-server",
-  "main": "index.js",
-  "scripts": {
-    "test": "npx jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Apokoala/api-server.git"
-  },
-  "author": "Michael Gazaway",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Apokoala/api-server/issues"
-  },
-  "homepage": "https://github.com/Apokoala/api-server#readme",
-
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
+"devDependencies": {
     "@babel/core": "^7.20.5",
     "@babel/preset-env": "^7.20.2",
     "babel-jest": "^29.3.1",
