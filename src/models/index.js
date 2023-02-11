@@ -18,7 +18,7 @@ const CONNECTION_OPTIONS =
               },
           }
 
-const sequelize = new Sequelize(DATABASE_URL, CONNECTION_OPTIONS)
+const sequelize = new Sequelize(postgres://api_server_l20t_user:7nKgoaXEAc6xnJ07gXFHWoIw2D01iQO9@dpg-cfjl0v9a6gductj76ea0-a/api_server_l20t, CONNECTION_OPTIONS)
 
 const Food = makeFood(sequelize)
 const Clothes = makeClothes(sequelize)
